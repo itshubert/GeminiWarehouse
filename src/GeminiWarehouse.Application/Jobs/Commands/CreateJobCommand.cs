@@ -3,7 +3,6 @@ using GeminiWarehouse.Application.Common.Interfaces;
 using GeminiWarehouse.Application.Common.Models.Jobs;
 using GeminiWarehouse.Domain.Common.Errors;
 using GeminiWarehouse.Domain.JobAggregate;
-using GeminiWarehouse.Domain.JobAggregate.Entities;
 using GeminiWarehouse.Domain.JobAggregate.ValueObjects;
 using MapsterMapper;
 using MediatR;
@@ -54,7 +53,7 @@ public sealed class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, 
             null,
             request.FulfillmentId,
             request.OrderId,
-            JobStatus.Pending,
+            Domain.JobAggregate.JobStatus.Pending,
             ShippingAddress.Create(
                 request.ShippingAddress.FirstName,
                 request.ShippingAddress.LastName,

@@ -88,6 +88,15 @@ public sealed class Job : AggregateRoot<JobId>
     {
         Status = newStatus;
         UpdatedAt = DateTimeOffset.UtcNow;
+
+        switch (newStatus)
+        {
+            case JobStatus.InProgress:
+                AddDomainEvent(new Events.JobInProgressDomainEvent(Id));
+                break;
+            default:
+                break;
+        }
     }
 
 }

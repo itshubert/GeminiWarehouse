@@ -1,5 +1,6 @@
 using GeminiWarehouse.Application.Common.Interfaces;
 using GeminiWarehouse.Domain.JobAggregate;
+using GeminiWarehouse.Domain.JobAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeminiWarehouse.Infrastructure.Persistence.Repositories;
@@ -8,6 +9,12 @@ public sealed class JobRepository : BaseRepository, IJobRepository
 {
     public JobRepository(GeminiWarehouseDbContext dbContext) : base(dbContext)
     {
+    }
+
+    public async Task<Job?> GetByIdForUpdateAsync(JobId id, CancellationToken cancellationToken = default)
+    {
+        return await _context.Jobs
+            .FirstOrDefaultAsync(j => j.Id == id, cancellationToken);
     }
 
     public async Task<Job?> GetJobByFulfillmentIdAsync(Guid fulfillmentId, CancellationToken cancellationToken = default)
