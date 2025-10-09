@@ -1,3 +1,4 @@
+using GeminiWarehouse.Domain.JobAggregate;
 using GeminiWarehouse.Infrastructure.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,8 @@ public sealed class GeminiWarehouseDbContext : DbContext
     {
         _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
     }
+
+    public DbSet<Job> Jobs => Set<Job>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

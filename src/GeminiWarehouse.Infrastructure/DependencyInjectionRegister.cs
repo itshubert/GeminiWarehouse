@@ -13,6 +13,8 @@ using GeminiWarehouse.Application.Common.Messaging;
 using GeminiWarehouse.Infrastructure.Messaging;
 using GeminiWarehouse.Infrastructure.Interceptors;
 using GeminiOrderFulfillment.Infrastructure.Messaging.Models;
+using GeminiWarehouse.Application.Common.Interfaces;
+using GeminiWarehouse.Infrastructure.Persistence.Repositories;
 
 namespace GeminiOrderFulfillment.Infrastructure;
 
@@ -63,8 +65,7 @@ public static class DependencyInjectionRegister
         // });
 
         services.AddScoped<PublishDomainEventsInterceptor>();
-        // services.AddScoped<ICatalogService, CatalogService>();
-        // services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<IJobRepository, JobRepository>();
 
         return services;
     }
