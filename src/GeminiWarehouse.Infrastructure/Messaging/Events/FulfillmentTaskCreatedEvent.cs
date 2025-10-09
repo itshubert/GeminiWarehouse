@@ -8,4 +8,4 @@ public sealed record FulfillmentTaskCreatedEvent(
     string Status,
     string? TrackingNumber,
     ShippingAddressModel ShippingAddress,
-    List<JobItemModel> JobItems);
+    List<JobItemModel> LineItems);

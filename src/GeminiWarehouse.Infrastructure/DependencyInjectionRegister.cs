@@ -15,6 +15,8 @@ using GeminiWarehouse.Infrastructure.Interceptors;
 using GeminiOrderFulfillment.Infrastructure.Messaging.Models;
 using GeminiWarehouse.Application.Common.Interfaces;
 using GeminiWarehouse.Infrastructure.Persistence.Repositories;
+using GeminiWarehouse.Infrastructure.Messaging.EventProcessors;
+using GeminiWarehouse.Infrastructure.Messaging.Events;
 
 namespace GeminiOrderFulfillment.Infrastructure;
 
@@ -59,10 +61,10 @@ public static class DependencyInjectionRegister
 
         services.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
 
-        // services.AddMessaging<InventoryReservedEvent, InventoryReservedEventProcessor>(sp =>
-        // {
-        //     return sp.GetRequiredService<IOptions<QueueSettings>>().Value.InventoryReserved ?? string.Empty;
-        // });
+        services.AddMessaging<FulfillmentTaskCreatedEvent, FulfillmentTaskCreatedEventProcessor>(sp =>
+        {
+            return sp.GetRequiredService<IOptions<QueueSettings>>().Value.FulfillmentTaskCreated ?? string.Empty;
+        });
 
         services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IJobRepository, JobRepository>();

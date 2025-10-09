@@ -4,8 +4,8 @@ public sealed record JobModel(
     Guid Id,
     string ExternalId,
     string Status,
-    DateTime CreatedAt,
-    DateTime UpdatedAt,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset UpdatedAt,
     ShippingAddressModel ShippingAddress,
     List<JobItemModel> Items);
 

@@ -19,7 +19,7 @@ public sealed class FulfillmentTaskCreatedEventProcessor : IEventProcessor<Fulfi
         _logger = logger;
     }
 
-    public Task<bool> ProcessEventAsync(FulfillmentTaskCreatedEvent @event, CancellationToken cancellationToken)
+    public async Task<bool> ProcessEventAsync(FulfillmentTaskCreatedEvent @event, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Processing FulfillmentTaskCreatedEvent for FulfillmentId: {FulfillmentId}", @event.FulfillmentId);
 
@@ -29,9 +29,9 @@ public sealed class FulfillmentTaskCreatedEventProcessor : IEventProcessor<Fulfi
             @event.Status,
             @event.TrackingNumber,
             @event.ShippingAddress,
-            @event.JobItems.Select(ji => new CreateJobItemRequest(ji.ProductId, ji.ProductName, ji.Quantity)).ToList());
+            @event.LineItems.Select(ji => new CreateJobItemRequest(ji.ProductId, ji.ProductName, ji.Quantity)).ToList());
 
-        return _mediator.Send(command, cancellationToken)
+        return await _mediator.Send(command, cancellationToken)
             .ContinueWith(task =>
             {
                 if (task.IsCompletedSuccessfully)
