@@ -1,0 +1,6 @@
+@GeminiWarehouse.Api_HostAddress = http://localhost:5051
+
+GET {{GeminiWarehouse.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
