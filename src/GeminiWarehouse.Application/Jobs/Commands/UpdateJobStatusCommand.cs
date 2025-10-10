@@ -1,6 +1,7 @@
 using ErrorOr;
 using GeminiWarehouse.Application.Common.Interfaces;
 using GeminiWarehouse.Application.Common.Models.Jobs;
+using GeminiWarehouse.Domain.Common.Errors;
 using GeminiWarehouse.Domain.JobAggregate.ValueObjects;
 using MediatR;
 
@@ -24,7 +25,7 @@ public sealed class UpdateJobStatusCommandHandler : IRequestHandler<UpdateJobSta
 
         if (job is null)
         {
-            return Error.NotFound(description: $"Job with ID {request.JobId} not found.");
+            return Errors.Job.NotFound;
         }
 
         job.UpdateStatus((Domain.JobAggregate.JobStatus)request.NewStatus);

@@ -25,9 +25,11 @@ public class JobsController : BaseController
             _ => throw new ArgumentException("Invalid status", nameof(newStatus))
         });
 
-        await Mediator.Send(command);
+        var result = await Mediator.Send(command);
 
-        return NoContent();
+        return result.Match(
+            _ => NoContent(),
+            Problem);
     }
 
 }

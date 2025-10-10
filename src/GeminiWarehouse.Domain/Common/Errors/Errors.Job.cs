@@ -7,8 +7,8 @@ public static partial class Errors
     public static class Job
     {
         public static Error NotFound => Error.NotFound(
-            code: "Fulfillment.NotFound",
-            description: "The specified order fulfillment was not found.");
+            code: "Job.NotFound",
+            description: "The specified job id was not found.");
 
         public static Error JobFulfillmentAlreadyExists(Guid fulfillmentId) => Error.Conflict(
             code: "Job.FulfillmentAlreadyExists",
