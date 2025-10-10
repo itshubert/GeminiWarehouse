@@ -3,4 +3,4 @@ using GeminiWarehouse.Domain.JobAggregate.ValueObjects;
 
 namespace GeminiWarehouse.Domain.JobAggregate.Events;
 
-public sealed record JobInProgressDomainEvent(JobId JobId) : IDomainEvent;
+public sealed record JobStatusChangeDomainEvent(JobId JobId, JobStatus NewStatus) : IDomainEvent;
