@@ -28,7 +28,7 @@ public sealed record JobStatusChangeDomainEventHandler : INotificationHandler<Jo
 
     public async Task Handle(JobStatusChangeDomainEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"Publishing JobStatusChangeEvent Job with ID {notification.JobId} changed status to {notification.NewStatus}.");
+        _logger.LogInformation($"Publishing JobStatusChangeEvent Job with ID {notification.JobId.Value} changed status to {notification.NewStatus}.");
 
         var job = await _jobRepository.GetByIdForUpdateAsync(notification.JobId, cancellationToken);
 
